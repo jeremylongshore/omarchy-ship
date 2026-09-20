@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-label="omarchy-ship: a pre-submission lane for Omarchy plugins that refuses to report success for anything it did not check. A report where four layers ran clean, one could not run, and the verdict is INCONCLUSIVE with no submission emitted.">
+  <rect width="1200" height="340" fill="#11151a"/>
+
+  <!-- Left column: identity. Narrow on purpose, so the right side can show the
+       report itself rather than describe it. -->
+  <g font-family="'JetBrains Mono','Cascadia Mono',monospace">
+    <text x="64" y="104" font-size="40" font-weight="700" letter-spacing="3" fill="#e6e9ec">OMARCHY</text>
+    <text x="64" y="148" font-size="40" font-weight="700" letter-spacing="3" fill="#e6e9ec">SHIP</text>
+    <text x="66" y="184" font-size="15" letter-spacing="1" fill="#8f9aa6">A lane that is willing to refuse.</text>
+    <text x="66" y="226" font-size="13" letter-spacing="1" fill="#5d6874">gates · tests · rig validate ·</text>
+    <text x="66" y="246" font-size="13" letter-spacing="1" fill="#5d6874">real shell load · live first run ·</text>
+    <text x="66" y="266" font-size="13" letter-spacing="1" fill="#5d6874">and a verdict that carries its</text>
+    <text x="66" y="286" font-size="13" letter-spacing="1" fill="#5d6874">own denominator</text>
+  </g>
+
+  <!-- Right: the report, drawn. The signature is the amber row. Four layers ran
+       clean and the lane still declines to emit a submission, because the fifth
+       could not run. A lane that always produces a submission tells you nothing. -->
+  <g transform="translate(520,36)" font-family="'JetBrains Mono','Cascadia Mono',monospace">
+    <rect x="0" y="0" width="616" height="268" rx="4" fill="#161b21" stroke="#2a323b"/>
+
+    <text x="22" y="32" font-size="13" font-weight="700" letter-spacing="1" fill="#e6e9ec">OMARCHY SHIP: pit-wall</text>
+    <line x1="22" y1="44" x2="594" y2="44" stroke="#2a323b"/>
+
+    <g font-size="12">
+      <!-- layer rows: stripe, layer, what ran, state -->
+      <rect x="22" y="56" width="3" height="18" rx="1.5" fill="#7fc4a8"/>
+      <text x="38" y="69" fill="#98a3ae">Gates</text>
+      <text x="132" y="69" fill="#d6dbe1">13 ran clean · 0 found · 0 n/a</text>
+      <text x="594" y="69" text-anchor="end" fill="#7fc4a8">ran</text>
+
+      <rect x="22" y="82" width="3" height="18" rx="1.5" fill="#7fc4a8"/>
+      <text x="38" y="95" fill="#98a3ae">Tests</text>
+      <text x="132" y="95" fill="#d6dbe1">53 / 53</text>
+      <text x="594" y="95" text-anchor="end" fill="#7fc4a8">ran</text>
+
+      <rect x="22" y="108" width="3" height="18" rx="1.5" fill="#7fc4a8"/>
+      <text x="38" y="121" fill="#98a3ae">Rig</text>
+      <text x="132" y="121" fill="#d6dbe1">validate 0 · qmllint 0</text>
+      <text x="594" y="121" text-anchor="end" fill="#7fc4a8">ran</text>
+
+      <rect x="22" y="134" width="3" height="18" rx="1.5" fill="#7fc4a8"/>
+      <text x="38" y="147" fill="#98a3ae">Render</text>
+      <text x="132" y="147" fill="#d6dbe1">real shell load · 0 QML warnings</text>
+      <text x="594" y="147" text-anchor="end" fill="#7fc4a8">ran</text>
+
+      <rect x="18" y="158" width="580" height="24" rx="3" fill="#221d16"/>
+      <rect x="22" y="161" width="3" height="18" rx="1.5" fill="#d9a05b"/>
+      <text x="38" y="174" fill="#d9a05b">Live</text>
+      <text x="132" y="174" fill="#e0c39a">first run · rig unreachable</text>
+      <text x="594" y="174" text-anchor="end" font-weight="700" fill="#d9a05b">UNPROVEN</text>
+    </g>
+
+    <line x1="22" y1="196" x2="594" y2="196" stroke="#2a323b"/>
+    <text x="22" y="218" font-size="12" fill="#98a3ae">COVERAGE</text>
+    <text x="132" y="218" font-size="12" fill="#d6dbe1">4 / 5 applicable checks ran</text>
+
+    <text x="22" y="246" font-size="12" fill="#98a3ae">VERDICT</text>
+    <text x="132" y="246" font-size="14" font-weight="700" letter-spacing="1" fill="#d9a05b">INCONCLUSIVE</text>
+    <text x="594" y="246" font-size="11" text-anchor="end" fill="#6d7783">no submission emitted</text>
+  </g>
+</svg>
