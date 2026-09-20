@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "The omarchy-ship pre-submission lane for Omarchy plugins.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "omarchy-ship",
       "source": "./",
       "description": "A pre-submission lane for Omarchy plugins that refuses to report success for anything it did not actually check.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": { "name": "Jeremy Longshore" },
       "license": "MIT",
       "keywords": ["omarchy", "quickshell", "qml", "verification"]
