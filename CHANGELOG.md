@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0] - 2026-09-20
+
+### Added
+
+- `scripts/live-first-run.sh`, the implementation of layer 5. It builds a
+  throwaway copy of a plugin, replaces the fixture `curl` with a pass-through
+  wrapper, seeds no state, and runs it in the real shell on the rig. It fails
+  unless every fetch exits 0 with a body, and prints a START / KILLED / END trace.
+  On its first day it found a first-run race in a shipped plugin that 89 offline
+  tests, 13 gates, static validation and a clean render had all passed: the
+  plugin stopped its own schedule fetch 6 ms after starting it and never
+  restarted it.
+
 ## [1.1.0] - 2026-09-20
 
 First public release.

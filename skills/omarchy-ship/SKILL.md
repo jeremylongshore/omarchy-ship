@@ -10,7 +10,7 @@ description: |
   Trigger with "/omarchy-ship", "ship this omarchy plugin", "is this ready to submit",
   "run the submission lane".
 allowed-tools: Read, Glob, Grep, Bash(git:*), Bash(bash:*), Bash(jq:*), Bash(docker:*), Bash(gh:*), Bash(npm:*), Task, AskUserQuestion
-version: 1.1.0
+version: 1.2.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 compatibility: Requires git, jq and docker on PATH, a contributing-clanker checkout for the canonical gate lane, and the omarchy-rig container for rig checks
@@ -97,6 +97,11 @@ the state of everything else:
    from inside the shell that the plugin itself fetched real data. Always run a
    control that must fail (the old URL, the old bound), or the test proves nothing.
    A plugin with no network path marks this NOT APPLICABLE, never PASS.
+   Run it with `scripts/live-first-run.sh <plugin-tree> <label> [min-calls] [wait-seconds]`.
+   It swaps the plugin's fixture `curl` for a pass-through wrapper, so the plugin's
+   own argv hits the real host on the rig, and it fails unless every fetch exits 0
+   with a body. Read the trace: a START followed by KILLED and no new START is a
+   fetch the plugin stopped and never restarted.
 
 Layer 4 is the one that earns its keep for QML. Both static checks pass a plugin whose
 QML contract is wrong; only loading it catches that. Treat any QML warning as a
