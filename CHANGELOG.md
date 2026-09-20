@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.0] - 2026-09-20
+
+### Added
+
+- `contracts/upstream-contracts.json` and `scripts/check-contracts.py`: a watch on
+  every upstream document, repository and endpoint the skill depends on. Documents
+  are pinned by commit and sha256 with the assumptions drawn from them and the
+  local files that repeat them. Repositories are checked for the owner/name they
+  resolve to. Endpoints are checked for status and shape without following
+  redirects. A weekly workflow opens an issue with the report.
+- Step 0 in the skill: check that the skill's own knowledge is still true before
+  trusting its references.
+- CI: offline unit tests, contracts validation, and a check that the version
+  agrees across the plugin manifest, the marketplace manifest and the skill.
+
+The pin-and-watch design, and the version agreement check, follow
+tcballard/build-omarchy-plugins (MIT).
+
 ## [1.2.0] - 2026-09-20
 
 ### Added

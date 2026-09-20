@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-20",
+  "contracts": [
+    {
+      "name": "Marketplace verify and update form",
+      "kind": "document",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "ref": "main",
+      "path": ".github/ISSUE_TEMPLATE/verify-plugin.yml",
+      "pinnedCommit": "40315f2a919107aad9d288ed5378b5875aa103c6",
+      "sha256": "7d31318916ad5afcf6029ea7744a69898c9f1111ca0405abeb56a685fff0bc0c",
+      "assumptions": [
+        "One form covers verifying a listed snapshot and publishing a newer commit; the title prefix is [Verify]:",
+        "The update action is the option labelled exactly: Verify and publish a newer upstream commit",
+        "The body is six headings in this order: Verification action, Plugin ID, Repository URL, Target commit, Verification acknowledgment, Standard installation acknowledgment",
+        "Target commit is a full 40 character sha, and for an update it is the repository's current HEAD"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md (Verify request body)"
+      ]
+    },
+    {
+      "name": "Marketplace new submission form",
+      "kind": "document",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "ref": "main",
+      "path": ".github/ISSUE_TEMPLATE/submit-plugin.yml",
+      "pinnedCommit": "7dd6e56f27a732dad178012bfd996c8474027d11",
+      "sha256": "c1ad7232142853395352386b32b0cdaf9529b5372aa4182938297d26085cdea7",
+      "assumptions": [
+        "The title prefix is [Plugin]: and the form has six headings and five required acknowledgments",
+        "Category is one exact case-sensitive value and tags are one to three values from the listed set"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md (Submission body)"
+      ]
+    },
+    {
+      "name": "Marketplace submission guide",
+      "kind": "document",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "ref": "main",
+      "path": "SUBMISSION.md",
+      "pinnedCommit": "7dd6e56f27a732dad178012bfd996c8474027d11",
+      "sha256": "a380a2f6334857d466a38db2f69507bdad13df36ac6e83cba13fbbf7088473e9",
+      "assumptions": [
+        "approved-and-verified is the only label that publishes, for new listings and updates; approved-for-listing is a legacy audit label",
+        "A failed or corrected request is retried by editing the same issue, never by opening a duplicate",
+        "An update keeps the current snapshot live until the new commit is approved"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md (After filing)"
+      ]
+    },
+    {
+      "name": "Marketplace verification policy",
+      "kind": "document",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "ref": "main",
+      "path": "VERIFICATION.md",
+      "pinnedCommit": "40315f2a919107aad9d288ed5378b5875aa103c6",
+      "sha256": "4679f3b49feef166588dd61107f7d9e311059ba5c87032fa1332f14f1c343ee9",
+      "assumptions": [
+        "A listing is update-unverified whenever upstream HEAD differs from listingValidatedCommit, including for commits that change no runtime file",
+        "Publication refuses if the upstream commit changes after analysis, so HEAD must stay frozen while a request is pending",
+        "The install and update commands clone mutable upstream HEAD and are not bound to the verified commit",
+        "verificationCoverage in catalog.json is the authoritative state, not the issue labels"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md",
+        "skills/omarchy-ship/SKILL.md (Step 7)"
+      ]
+    },
+    {
+      "name": "Marketplace security baseline",
+      "kind": "document",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "ref": "main",
+      "path": "SECURITY.md",
+      "pinnedCommit": "0e98d2238e82a4fd89e8106fa5fa8d434af4fd59",
+      "sha256": "87beed5e57813bb9efdb02ae3bd50cbbdfdecb4ed5beba67a8573dbd4202ec5f",
+      "assumptions": [
+        "review-required with zero findings is the normal state awaiting a maintainer; needs-fixes means a finding blocks promotion",
+        "A download in an installer-adjacent script can be reported as curl-pipe-shell even when nothing downloaded is executed",
+        "Capabilities such as installer, remote-build and package-manager are reported for maintainer review and are not findings"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md (After filing)",
+        "skills/omarchy-ship/references/defect-classes.md"
+      ]
+    },
+    {
+      "name": "Omarchy shell and plugin contract",
+      "kind": "document",
+      "repository": "omacom/omarchy",
+      "ref": "quattro",
+      "path": "docs/omarchy-shell.md",
+      "pinnedCommit": "45748a2812f42e32f915b053caf4074e150e2048",
+      "sha256": "7ea35e112137e66d7994e20967704e045fd479a047b96bb10a119dee6ddae54f",
+      "assumptions": [
+        "A plugin is a repository with a root manifest.json that declares schemaVersion 1 and entryPoints to hosted QML files",
+        "Third-party plugin code runs unsandboxed inside the long-running shell process",
+        "The plugin directory is watched, and a reload destroys and recreates QML instances"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/SKILL.md (Step 1)",
+        "agents/omarchy-plugin-architect.md",
+        "agents/omarchy-submission-auditor.md"
+      ]
+    },
+    {
+      "name": "Marketplace repository identity",
+      "kind": "repository",
+      "repository": "omacom/omarchy-plugin-marketplace",
+      "expectedFullName": "omacom/omarchy-plugin-marketplace",
+      "assumptions": [
+        "Submissions are filed to this owner/name. It moved from HANCORE-linux to omacom on 2026-08-30 and the old name only redirects",
+        "Any tool that recognises a submission by repository name must match this name"
+      ],
+      "consumers": [
+        "skills/omarchy-ship/references/submission-format.md",
+        "jeremylongshore/contributing-clanker: skills/contribute/scripts/precheck-hook.sh (OMARCHY_MARKETPLACE_MATCH)"
+      ]
+    },
+    {
+      "name": "Omarchy repository identity",
+      "kind": "repository",
+      "repository": "omacom/omarchy",
+      "expectedFullName": "omacom/omarchy",
+      "assumptions": [
+        "The shell and its docs live here; basecamp/omarchy only redirects"
+      ],
+      "consumers": [
+        "contracts/upstream-contracts.json (the document pin above)"
+      ]
+    },
+    {
+      "name": "Marketplace catalog endpoint",
+      "kind": "endpoint",
+      "url": "https://plugins.omarchy.org/catalog.json",
+      "expectStatus": 200,
+      "expectBodyContains": "\"plugins\"",
+      "assumptions": [
+        "The catalog is served here directly with HTTP 200 and no redirect. A plugin that refuses redirects by design cannot load it otherwise",
+        "The body is a JSON object with a plugins array"
+      ],
+      "consumers": [
+        "jeremylongshore/omarchy-bazaar-entry: Service.qml catalogUrl",
+        "intent-solutions-io/omarchy-plugins: plugins.json marketplace.catalog",
+        "skills/omarchy-ship/references/submission-format.md"
+      ]
+    },
+    {
+      "name": "Marketplace stats endpoint",
+      "kind": "endpoint",
+      "url": "https://api.omarchyplugins.com/v1/stats",
+      "expectStatus": 200,
+      "expectBodyContains": "\"plugins\"",
+      "assumptions": [
+        "Engagement stats are still served from the old domain's API host. The marketplace's own engagement.js calls it in production",
+        "The body is a JSON object keyed by plugin id under plugins"
+      ],
+      "consumers": [
+        "jeremylongshore/omarchy-bazaar-entry: Service.qml statsUrl",
+        "intent-solutions-io/omarchy-plugins: plugins.json marketplace.stats, scripts/catalog_pipeline.py, site/assets/app.js allowedStatsHost"
+      ]
+    },
+    {
+      "name": "Retired marketplace catalog host",
+      "kind": "endpoint",
+      "url": "https://omarchyplugins.com/catalog.json",
+      "expectStatus": 301,
+      "assumptions": [
+        "The old host answers 301 to plugins.omarchy.org and must not be shipped in a plugin. If this stops being a 301 the old links on the web are dead or have been repointed"
+      ],
+      "consumers": [
+        "jeremylongshore/omarchy-bazaar-entry: tests/contract.test.js forbids this URL"
+      ]
+    }
+  ]
+}

@@ -10,7 +10,7 @@ description: |
   Trigger with "/omarchy-ship", "ship this omarchy plugin", "is this ready to submit",
   "run the submission lane".
 allowed-tools: Read, Glob, Grep, Bash(git:*), Bash(bash:*), Bash(jq:*), Bash(docker:*), Bash(gh:*), Bash(npm:*), Task, AskUserQuestion
-version: 1.2.0
+version: 1.3.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 compatibility: Requires git, jq and docker on PATH, a contributing-clanker checkout for the canonical gate lane, and the omarchy-rig container for rig checks
@@ -63,6 +63,21 @@ it never established.** This lane is built so that cannot happen quietly.
 - `git`, `jq`, `docker` on PATH.
 
 ## Instructions
+
+### Step 0: Check that this skill's own knowledge is still true
+
+Everything this skill says about the marketplace is a copy of somebody else's
+document, host or repository, and copies go stale without announcing it. From a
+checkout of this plugin's repository, run:
+
+```
+python3 scripts/check-contracts.py --check-heads --live
+```
+
+If it reports drift, read the named upstream document and re-check the listed
+assumptions BEFORE trusting `references/submission-format.md`. A submission built
+from a stale form is rejected by a bot, not a person. If the check cannot run,
+say so in the report; do not assume the references are current.
 
 ### Step 1: Resolve the plugin and prove the tree is real
 

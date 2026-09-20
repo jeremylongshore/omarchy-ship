@@ -1,6 +1,6 @@
 {
   "name": "omarchy-ship",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A pre-submission lane for Omarchy (Quickshell/QML) plugins that refuses to report success for anything it did not actually check. Runs the gate lane, offline tests, rig validation, a real shell load and a live first-run test, accounts for coverage, and emits a marketplace submission only on a clean verdict.",
   "author": {
     "name": "Jeremy Longshore",

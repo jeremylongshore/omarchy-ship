@@ -59,6 +59,38 @@ The answer is exactly one of three words:
 A lane that always produces a submission is a lane whose verdict carries no
 information.
 
+## It watches its own assumptions
+
+Everything a tool like this tells you about a marketplace is a copy of somebody
+else's document, host or repository. On one day in September 2026 all of these
+turned out to be stale, none of them announced: the marketplace repository had
+moved organisations, the verify request had become a parsed issue form, one label
+had stopped publishing anything, and the catalog host had begun answering 301,
+which left a shipped plugin unable to load for every new user.
+
+`contracts/upstream-contracts.json` pins each upstream dependency with the
+assumptions drawn from it and the local files that repeat them. Three kinds:
+
+| Kind | What is pinned | What is reported |
+| --- | --- | --- |
+| document | a file, by commit and sha256 | it changed, moved or vanished at the tip of its branch |
+| repository | the owner/name it resolves to | it was transferred or renamed |
+| endpoint | a URL a plugin calls, and its status | it began redirecting, failing, or changed shape. Redirects are never followed |
+
+```
+python3 scripts/check-contracts.py --online --check-heads --live
+```
+
+A weekly workflow runs that and opens an issue with the report: what moved, which
+assumptions to re-check, which files to fix. After re-reading the upstream
+document, `--repin "<name>"` records the new pin.
+
+The pin-and-watch design follows
+[tcballard/build-omarchy-plugins](https://github.com/tcballard/build-omarchy-plugins)
+(MIT), which pins upstream documents the same way. The repository identity and
+live endpoint checks are additions, because a moved repository and a dead host
+are what actually cost a day here.
+
 ## Install
 
 ```
@@ -87,6 +119,9 @@ skills/omarchy-ship/
   references/submission-format.md   the marketplace issue forms, verbatim headings
   references/defect-classes.md      eleven defect classes, each with the incident behind it
   evals/evals.json                  behavioral evals for the skill
+  scripts/live-first-run.sh         layer 5: a first-run user on a real network
+contracts/upstream-contracts.json   every upstream document, repository and endpoint relied on
+scripts/check-contracts.py          the watch: pin integrity, drift, live identity and endpoints
 agents/
   omarchy-coverage-reporter.md      separates NOT APPLICABLE from UNPROVEN, returns a denominator
   omarchy-submission-auditor.md     judgment: stock-box install, QML security invariants, idiom
