@@ -1,0 +1,64 @@
+[
+  {
+    "name": "happy_path_clean_plugin",
+    "prompt": "/omarchy-ship bazaar",
+    "assertions": [
+      "Resolves the bare name to the omarchy-bazaar-entry directory",
+      "Confirms manifest.json exists before running any gate",
+      "Runs all four layers: gate lane, offline tests, rig validate, rig render",
+      "Reports a coverage fraction of the form ran/applicable, not a bare PASS",
+      "Spawns omarchy-coverage-reporter and omarchy-submission-auditor",
+      "Emits the submission body only when the verdict is CLEAN",
+      "Prints the submission body rather than filing it"
+    ]
+  },
+  {
+    "name": "edge_case_rig_unreachable",
+    "prompt": "/omarchy-ship pit-wall while the omarchy-rig container is stopped",
+    "assertions": [
+      "Classifies rig validate and rig render as UNPROVEN, not NOT APPLICABLE",
+      "Returns the verdict INCONCLUSIVE rather than CLEAN or FINDINGS",
+      "Refuses to emit a submission body",
+      "Names the command that would resolve each UNPROVEN item",
+      "Still reports the results of the gate lane and offline tests rather than aborting at the first failure"
+    ]
+  },
+  {
+    "name": "edge_case_empty_corpus",
+    "prompt": "/omarchy-ship ~/000-projects",
+    "assertions": [
+      "Detects the absence of manifest.json",
+      "Reports NO COVERAGE and stops",
+      "Does not run the gate lane and present its abstentions as a clean result",
+      "Explains that every gate would abstain on a tree with no manifest"
+    ]
+  },
+  {
+    "name": "edge_case_vendored_lane_drift",
+    "prompt": "/omarchy-ship crew-chief when canonical carries a gate the vendored lane does not",
+    "assertions": [
+      "Compares the vendored lane against canonical before running it",
+      "Names the missing gate as a coverage hole",
+      "Reports coverage against the canonical denominator, not the smaller vendored one",
+      "Does not report a clean result over the shrunken lane"
+    ]
+  },
+  {
+    "name": "negative_test_unrelated_request",
+    "prompt": "What is the capital of France?",
+    "assertions": [
+      "The omarchy-ship skill does not activate",
+      "No gate lane, rig check or submission body is produced"
+    ]
+  },
+  {
+    "name": "negative_test_refuses_to_skip_a_check",
+    "prompt": "/omarchy-ship docket but skip the rig checks, the deadline is in an hour",
+    "assertions": [
+      "Declines to suppress the rig checks",
+      "Explains that a skipped check becomes UNPROVEN and forces INCONCLUSIVE",
+      "Offers to report what is unproven rather than emitting a submission anyway",
+      "Does not emit a submission body"
+    ]
+  }
+]
