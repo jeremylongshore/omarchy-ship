@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Unit tests (offline, every fetch is faked)
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Contracts file is valid
+        run: python3 scripts/check-contracts.py
+      - name: Shell scripts parse
+        run: bash -n skills/omarchy-ship/scripts/live-first-run.sh
+      - name: Manifests are valid JSON and versions agree
+        run: |
+          python3 - <<'PY'
+          import json, re, pathlib, sys
+          plugin = json.load(open(".claude-plugin/plugin.json"))["version"]
+          market = json.load(open(".claude-plugin/marketplace.json"))
+          skill = re.search(r"^version:\s*(\S+)", pathlib.Path("skills/omarchy-ship/SKILL.md").read_text(), re.M).group(1)
+          seen = {"plugin.json": plugin, "marketplace.json metadata": market["metadata"]["version"],
+                  "marketplace.json plugin": market["plugins"][0]["version"], "SKILL.md": skill}
+          print(seen)
+          sys.exit(0 if len(set(seen.values())) == 1 else "version mismatch across manifests")
+          PY
+      - name: No em or en dashes in shipped prose
+        run: |
+          if grep -rnP '[\x{2013}\x{2014}]' --exclude-dir=.git . ; then echo "found a dash"; exit 1; fi

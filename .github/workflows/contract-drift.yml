@@ -1,0 +1,61 @@
+name: contract-drift
+
+# Weekly watch on every upstream document, repository and endpoint this lane
+# depends on. A red scheduled run is easy to miss, so a finding also opens (or
+# updates) an issue carrying the report: what moved, which assumptions to
+# re-check, and which local files repeat them.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check pinned contracts, upstream tips and live endpoints
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 scripts/check-contracts.py --online --check-heads --live > report.txt 2>&1
+          rc=$?
+          cat report.txt
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+      - name: Open or update the drift issue
+        if: steps.check.outputs.rc != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC: ${{ steps.check.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "The weekly contract watch found upstream movement (exit $RC: 2 broken pin, 3 drift, 4 repository or endpoint)."
+            echo
+            echo '```'
+            cat report.txt
+            echo '```'
+            echo
+            echo "Re-read each upstream document, re-check the listed assumptions, fix the consumers, then re-pin with \`python3 scripts/check-contracts.py --repin \"<name>\"\` and close this issue."
+            echo
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } > body.md
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --label contract-drift --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body-file body.md
+          else
+            gh label create contract-drift --repo "$GITHUB_REPOSITORY" --color D9A05B --description "An upstream contract this lane depends on has moved" 2>/dev/null || true
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "Upstream contract drift detected" --label contract-drift --body-file body.md
+          fi
+      - name: Fail the run when anything moved
+        if: steps.check.outputs.rc != '0'
+        run: exit 1
