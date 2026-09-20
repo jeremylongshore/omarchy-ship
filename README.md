@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.svg" alt="omarchy-ship: a lane that is willing to refuse" width="100%"></p>
+
 # omarchy-ship
 
 A pre-submission lane for [Omarchy](https://omarchy.org) plugins that refuses to
@@ -5,6 +7,8 @@ report success for anything it did not actually check.
 
 It is a [Claude Code](https://code.claude.com) plugin: one skill, `/omarchy-ship`,
 and the three subagents it delegates to.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U5S225PTME)
 
 **Links:** [Omarchy plugin marketplace](https://plugins.omarchy.org) ·
 [Submission and verification docs](https://github.com/omacom/omarchy-plugin-marketplace) ·
