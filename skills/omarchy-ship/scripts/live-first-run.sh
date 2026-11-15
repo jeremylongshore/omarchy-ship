@@ -51,6 +51,14 @@ set -eu
 rm -f "$LOG"
 rm -rf "\$HOME/.local/state/omarchy" "\$HOME/.cache/omarchy"
 mkdir -p "\$HOME/.local/state/omarchy" "\$HOME/.config/omarchy/plugins"
+# A first-run plugin user still has an Omarchy theme. Restore the current-theme
+# state omarchy-theme-set writes; current first-party shell plugins (image-picker,
+# lock) log QML warnings without it, which the render would refuse.
+current="\$HOME/.local/state/omarchy/current"
+mkdir -p "\$current"
+ln -nsf /root/omarchy/themes/tokyo-night "\$current/theme"
+printf 'tokyo-night\n' > "\$current/theme.name"
+ln -nsf "\$current/theme/backgrounds/0-liftoff.webp" "\$current/background"
 HOOK
 
 cat > e2e/rig-before-capture.sh <<HOOK
