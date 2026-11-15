@@ -179,3 +179,10 @@ real install and passed on a developer box with the older curl.
 A comment that explains why something is safe is an assumption with no test. Pin
 the behavior with a test that runs where the user runs.
 
+The host moved under two plugins the same way. Hyprland 0.57 made `hyprctl dispatch`
+evaluate its argument as Lua, so Crew Chief's `focuswindow title:...` and Workspace
+Storyboard's `workspace N` became syntax errors on current Omarchy. Every static check
+still passed. Qt 6.12 likewise added its own `Color` type, which shadows Omarchy's palette
+unless plugin QML imports `qs.Commons as Commons`. Both surfaced only by re-reading the
+pinned upstream contract and upgrading the rig to the release users actually run.
+

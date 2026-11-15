@@ -10,7 +10,7 @@ description: |
   Trigger with "/omarchy-ship", "ship this omarchy plugin", "is this ready to submit",
   "run the submission lane".
 allowed-tools: Read, Glob, Grep, Bash(git:*), Bash(bash:*), Bash(jq:*), Bash(docker:*), Bash(gh:*), Bash(npm:*), Task, AskUserQuestion
-version: 1.3.0
+version: 1.3.1
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 compatibility: Requires git, jq and docker on PATH, a contributing-clanker checkout for the canonical gate lane, and the omarchy-rig container for rig checks
