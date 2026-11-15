@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-20",
+  "reviewedAt": "2026-11-15",
   "contracts": [
     {
       "name": "Marketplace verify and update form",
@@ -96,12 +96,13 @@
       "repository": "omacom/omarchy",
       "ref": "quattro",
       "path": "docs/omarchy-shell.md",
-      "pinnedCommit": "45748a2812f42e32f915b053caf4074e150e2048",
-      "sha256": "7ea35e112137e66d7994e20967704e045fd479a047b96bb10a119dee6ddae54f",
+      "pinnedCommit": "19936335bb3906e79c8099b0a0b4a7007b94b2db",
+      "sha256": "1ae131cea29b4c07ad926f2f874d1a1adafc65364b4658b0999310b12cebca2f",
       "assumptions": [
         "A plugin is a repository with a root manifest.json that declares schemaVersion 1 and entryPoints to hosted QML files",
         "Third-party plugin code runs unsandboxed inside the long-running shell process",
-        "The plugin directory is watched, and a reload destroys and recreates QML instances"
+        "The plugin directory is watched, and a reload destroys and recreates QML instances",
+        "Plugin QML must qualify the palette as Commons.Color via import qs.Commons as Commons, because Qt 6.12 adds its own Color type"
       ],
       "consumers": [
         "skills/omarchy-ship/SKILL.md (Step 1)",

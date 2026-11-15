@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.1] - 2026-11-15
+
+### Changed
+
+- Re-pin the Omarchy shell and plugin contract (`docs/omarchy-shell.md`) to `1993633`
+  after re-checking its assumptions. Record the new one: plugin QML qualifies the palette
+  as `Commons.Color`, because Qt 6.12 adds its own `Color` type (closes #4).
+- Teach `omarchy-submission-auditor` and `omarchy-plugin-architect` two current-Omarchy
+  rules: the `Commons.Color` palette import, and `hyprctl dispatch` in Hyprland 0.57's
+  Lua form first with the classic string as fallback.
+- Add both host changes to defect class 11 in `references/defect-classes.md`.
+
 ## [1.3.0] - 2026-09-20
 
 ### Added

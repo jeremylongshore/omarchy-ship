@@ -118,7 +118,19 @@ Byte-compare the BarWidget/Panel/Service contracts against a proven sibling
 memory. Specifically: `PanelKeyCatcher` emits `returnRequested()` **then**
 `activateRequested()`, so wiring both double-fires Enter; the catcher consumes `x` as
 `deleteRequested` before `textKey`; `kinds` must pair with `entryPoints`; and every
-`Style.*`/`Color.*`/`bar.*` token used must actually exist in the shell tree.
+`Style.*`/`Commons.Color.*`/`bar.*` token used must actually exist in the shell tree.
+
+Two current-Omarchy rules, both blocking:
+
+- **Palette:** QML must reach the palette as `Commons.Color.*` with
+  `import qs.Commons as Commons` (`docs/omarchy-shell.md`, Theme tokens). Qt 6.12 adds its
+  own `Color` type, so a bare `Color.` resolves to Qt's, not Omarchy's.
+- **Dispatch:** Hyprland 0.57, which current Omarchy configures in Lua, evaluates every
+  `hyprctl dispatch` argument as Lua (`return hl.dispatch(<argument>)`). A classic
+  `focuswindow ...` or `workspace ...` string is a syntax error there. Expect
+  `hl.dsp.*({ ... })` first and the classic form as the fallback, as Omarchy's
+  `omarchy-launch-or-focus` does. Any data inside the Lua form must be escaped as a Lua
+  string, and a `title:` selector is a whole-title regular expression.
 
 ### 7. Claim honesty
 

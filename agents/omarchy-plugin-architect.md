@@ -186,8 +186,14 @@ Byte-compare against a proven sibling (`omarchy-mlb-booth-entry`,
   types that are proven: `enum`, `integer`, `string`, `path`. There is no number type,
   so a fractional value ships as a `string`.
 - **Style tokens**: only use what exists (`Style.space()`, `Style.cornerRadius`,
-  `Style.font.*`, `Color.*`, `bar.foreground|background|urgent|fontFamily`). Verify
-  against the shell tree before using a token you have not used before.
+  `Style.font.*`, `Commons.Color.*`, `bar.foreground|background|urgent|fontFamily`).
+  Import the palette with `import qs.Commons as Commons`; a bare `Color.` is Qt 6.12's own
+  type, not Omarchy's. Verify against the shell tree before using a token you have not
+  used before.
+- **Hyprland dispatch**: send `hyprctl dispatch 'hl.dsp.focus({ window = "..." })'` (or
+  another `hl.dsp.*` call) first and the classic `focuswindow ...` second. Current Omarchy
+  runs Hyprland 0.57 in Lua mode, where the classic string is a syntax error. Escape
+  every data byte in the Lua form, and treat `title:` as a whole-title regular expression.
 
 ## How you work
 
