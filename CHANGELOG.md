@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.2] - 2026-11-15
+
+### Fixed
+
+- `scripts/live-first-run.sh` restores the current-theme state (`current/theme`,
+  `theme.name`, `background`) after its first-run wipe of `~/.local/state/omarchy`. A
+  first-run plugin user still has an Omarchy theme. Without it, current first-party
+  shell plugins (image-picker, lock) log QML warnings that fail every live run on a
+  current rig.
+
 ## [1.3.1] - 2026-11-15
 
 ### Changed
